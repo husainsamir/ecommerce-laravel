@@ -57,9 +57,9 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ route('productVariant.index') }}" class="nav-link">
+                    <a href="{{ route('admin.orders.index') }}" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
-                      <p>Products-Variants</p>
+                      <p>Orders</p>
                     </a>
                   </li>
                 </ul>
@@ -71,7 +71,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                     <a href="{{ route('product.images.index',$product->id) }}" class="nav-link">
+                     <a href="" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Products Images</p>
                     </a>

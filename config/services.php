@@ -36,5 +36,11 @@ return [
     'secret' => env('RAZORPAY_SECRET'),
 ],
 
+ 'stripe' => [
+    'key' => env('STRIPE_KEY'),
+    'secret' => env('STRIPE_SECRET'),
+],
+
+
 
 ];

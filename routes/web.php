@@ -14,13 +14,17 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\CartController;
 
 use App\Http\Controllers\User\CheckoutController;
-
+// Admin Order Routes
+use App\Http\Controllers\Admin\OrdersController;
  // Here Start Payment Controller  
 use App\Http\Controllers\User\OrderPaymentController;
 
 use App\Http\Controllers\User\OrderController;
 // ==============================
 // AUTH ROUTES
+ // ajax login route
+use App\Http\Controllers\Auth\AjaxLoginController;
+
 // ==============================
 
 // Register Page
@@ -118,7 +122,13 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-  
+   // admin orders routes 
+
+    Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/orders', [OrdersController::class, 'index'])->name('admin.orders.index');
+    Route::get('/orders/{id}', [OrdersController::class, 'show'])->name('admin.orders.show');
+     Route::delete('/orders/{id}', [OrdersController::class, 'destroy'])->name('admin.orders.destroy');
+});
 
 
  // From Here start user routes  
@@ -130,6 +140,11 @@ Route::get('/login', [AuthController::class, 'showUserLogin'])
 
 Route::post('/login', [AuthController::class, 'userLogin'])
     ->name('user.login.submit');
+
+// ajax login 
+
+Route::post('/ajax-login', [AjaxLoginController::class, 'login'])
+    ->name('ajax.login');
 
 
 
@@ -181,23 +196,23 @@ Route::middleware('auth')->group(function () {
    Route::middleware('auth')->get('/order-success', [CheckoutController::class, 'success'])
     ->name('orders.success');
 
-});
+});    
 
   
 
  // this routing for payment 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/payment/{order}', 
+    Route::get('/payment/{order}',
         [OrderPaymentController::class, 'showPaymentPage']
     )->name('payment.page');
 
-    // FAKE PAYMENT
-    Route::post('/payment/fake', 
-        [OrderPaymentController::class, 'fakePayment']
-    )->name('payment.fake');
+    // Stripe Checkout (NO JS)
+    Route::post('/payment/stripe/checkout',
+        [OrderPaymentController::class, 'stripeCheckout']
+    )->name('payment.stripe.checkout');
 
-    Route::get('/order/success/{order}', 
+    Route::get('/order/success/{order}',
         [OrderController::class, 'success']
     )->name('user.order.success');
 });

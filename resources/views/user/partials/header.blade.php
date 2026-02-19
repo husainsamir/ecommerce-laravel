@@ -33,7 +33,7 @@
         <!-- LOGIN / LOGOUT + CART -->
         <div class="col-lg-3 col-12 text-center text-lg-right">
 
-            {{-- AUTH LINKS --}}
+            {{-- AUTH --}}
             @auth
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
@@ -42,9 +42,13 @@
                     </button>
                 </form>
             @else
-                <a href="{{ route('user.login') }}" class="btn btn-outline-primary btn-sm mr-2">
+                <!-- LOGIN POPUP BUTTON -->
+                <button
+                    class="btn btn-outline-primary btn-sm mr-2"
+                    data-toggle="modal"
+                    data-target="#loginModal">
                     Login
-                </a>
+                </button>
             @endauth
 
             {{-- CART --}}
